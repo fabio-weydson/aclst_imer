@@ -1,0 +1,67 @@
+<ion-view view-title="CPR">
+  <ion-content id="cpr">
+    <div class="list">
+      <div class="card ">
+        <div class="item item-divider">
+          CPR 
+        </div>
+        <div class="item item-text-wrap item-button-left item-button-right">
+          <button class="button button-calm" ng-click="timer('02:00')">
+              START
+            </button> 
+            <span class="counter">{{CPR}} {{CPR_minute}}:{{CPR_seconds}}</span>
+        </div>
+      </div>
+      <div class="card ">
+          <div class="item item-divider">
+              Epinephrine 
+          </div>
+          <div class="item item-text-wrap item-button-left item-button-right">
+           
+            <button class="button button-calm">
+                START
+              </button> 
+              <span class="counter">03:00</span>
+            <button class="button button-dark">
+              <i class="icon ion-ios-gear"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card ">
+            <div class="item item-divider">
+                Amiodarone 
+            </div>
+            <div class="item item-text-wrap item-button-left item-button-right">
+              <button class="button button-calm">
+                  START
+                </button> 
+                <span class="counter">03:00</span>
+              <button class="button button-dark">
+                <i class="icon ion-ios-gear"></i>
+              </button>
+            </div>
+          </div> 
+          <div class="card ">
+              <div class="item text-center item-divider">
+                TOTAL CYCLES 
+              </div>
+              <div class="item item-text-wrap">
+                  <div class="row">
+                      <div class="col col-50 text-center"><b>Epinephrine:</b> <br/> 0 </div>
+                      <div class="col col-50 text-center"><b>Amiodarone:</b>  <br/> 0 </div>
+                    </div>
+                    <div class="row text-center"><div class="col"><b>CPR Cycles:</b>  <br/> 0 </div></div>
+                    <div class="row">
+                        <div class="col col-50 text-center"><b>Start Time:</b>  <br/> 0 </div>
+                        <div class="col col-50 text-center"><b>CPR Time:</b>  <br/> 0 </div>
+                      </div>
+                      <div class="row text-center"><div class="col">
+                          <button class="button button-assertive">
+                             STOP ALL
+                            </button>
+                      </div></div>
+              </div>
+            </div>
+    </div>
+  </ion-content>
+</ion-view>

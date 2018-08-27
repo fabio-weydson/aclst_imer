@@ -1,0 +1,8 @@
+/* Empty. Add your own CSS if you like */
+#cpr .counter {
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-size: 23px;
+}
