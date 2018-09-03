@@ -15,7 +15,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });
     cordova.plugins.backgroundMode.enable();
     cordova.plugins.backgroundMode.onactivate = function () {
-      alert('bg mode');
+      //alert('bg mode');
     }
                   
     document.addEventListener("backbutton",BackgroundMode(), true); 
