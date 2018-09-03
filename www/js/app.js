@@ -9,6 +9,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+
+    cordova.plugins.backgroundMode.setDefaults({
+        title:  'Em modo background', ticker: 'Entrando em segundo plano',  text:'Clique para abrir o aplicativo.'
+    });
+    cordova.plugins.backgroundMode.enable();
+    cordova.plugins.backgroundMode.onactivate = function () {
+      alert('bg mode');
+    }
+                  
+    document.addEventListener("backbutton",BackgroundMode(), true); 
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -20,6 +31,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+      function BackgroundMode(e){
+          e.preventDefault();
+      }
+
+
+
   });
 })
 
