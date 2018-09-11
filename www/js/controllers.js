@@ -4,6 +4,27 @@ angular.module('starter.controllers', [])
 
 .controller('CprCtrl', function($scope,$interval,$ionicPopup) {
 
+  $scope.timer = function(duration, callback){
+      var timer = duration, minutes, seconds;
+      var contador = $interval(function () {
+          minutes = parseInt(timer / 60, 10)
+          seconds = parseInt(timer % 60, 10);
+  
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+  
+          $scope.CPR_minute = minutes;
+          $scope.CPR_seconds = seconds;
+  
+          if (--timer < 0) {
+            $interval.cancel(contador);
+            if(callback=='cpr') {
+              $scope.showAlertPopup();
+            }
+          }
+      }, 1000);
+  }
+  
   $scope.date = new Date();
   $scope.CPR = '02:00';
   $scope.CPR_minute = '1';
@@ -135,52 +156,10 @@ angular.module('starter.controllers', [])
   }
     
  
-  $scope.timer = function(totalTime){
-    $scope.date = new Date();
-      var timerTemp = totalTime.split(':');
-      var minutes = parseInt(timerTemp[0], 10);
-      var seconds = parseInt(timerTemp[1], 10);
-
-      cprMinute = parseInt((minutes === '' ? 0 : minutes));
-      cprSecond = parseInt((seconds === '' ? 0 : seconds));
-
-      console.log(totalTime, cprMinute,cprSecond);
-      var aux = 0;
-      var final = cprMinute * 60;
-      var cronometro = $interval(function(){
-          if(aux==60){
-            aux=0;
-            $scope.CPR = $scope.CPR--;
-            $scope.CPR_seconds = 59;
-          } else {
-            $scope.CPR_seconds = final;
-          }
-
-          if(($scope.CPR==0)&&(final==0)) {
-            console.log('acabou')
-            $interval.cancel(cronometro);
-          }
-          
-          $scope.CPR = (final--);
-          aux++;
-      },1000);
-      /* cprSecond = cprSecond - 1;
-      if (cprSecond == 0 && cprMinute == 0) {
-          $scope.cprTime = totalTime;
-          console.log('finalizou cpr');
-          $scope.totalCprCycles = totalCprCycles + 1;
-
-          $scope.totalCprTime = totalCprTime + 2;
-
-          //audio.play();
-      } else if (cprSecond < 10 && cprMinute === 0) {
-        $scope.cprTime = "00:0" + cprSecond;
-      } else if (cprMinute >= 1) {
-        $scope.cprTime = (cprMinute < 10 ? '0' + cprMinute : cprMinute) + ":" + (cprSecond < 10 ? '0' + cprSecond : cprSecond);
-      } else {
-        $scope.cprTime = "00:" + cprSecond;
-      }
-      */
+  $scope.CPRTimer = function(totalTime){
+   // $scope.date = new Date();
+    var fiveMinutes = 60 * 1.98;
+    $scope.startTimer = $scope.timer(fiveMinutes,$scope.CPR_minute,$scope.CPR_seconds);
     
   }
  
