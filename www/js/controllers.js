@@ -4,34 +4,69 @@ angular.module('starter.controllers', [])
 
 .controller('CprCtrl', function($scope,$interval,$ionicPopup) {
 
+
+  $scope.date = new Date();
+  $scope.CPRbtn = true;
+  $scope.EPHbtn = true;
+  $scope.AMIbtn = true;
+
+  $scope.CPR_counter = 0;
+  $scope.EPH_counter = 0;
+  $scope.AMI_counter = 0;
+
+  $scope.CPR_total_time = '0:00';
+
+  $scope.CPR_minute = '2';
+  $scope.CPR_seconds = '00';
+
+  $scope.EPH_minute = '2';
+  $scope.EPH_seconds = '00';
+
+  $scope.AMI_minute = '2';
+  $scope.AMI_seconds = '00';
+ 
+
+
   $scope.timer = function(duration, callback){
       var timer = duration, minutes, seconds;
       var contador = $interval(function () {
+
           minutes = parseInt(timer / 60, 10)
           seconds = parseInt(timer % 60, 10);
   
           minutes = minutes < 10 ? "0" + minutes : minutes;
           seconds = seconds < 10 ? "0" + seconds : seconds;
-  
-          $scope.CPR_minute = minutes;
-          $scope.CPR_seconds = seconds;
+
+          if(callback=='cpr') {
+            $scope.CPR_minute = minutes;
+            $scope.CPR_seconds = seconds;
+          } else if(callback=='eph') {
+            $scope.EPH_minute = minutes;
+            $scope.EPH_seconds = seconds;
+          } else if (callback=='ami') {
+            $scope.AMI_minute = minutes;
+            $scope.AMI_seconds = seconds;
+          }
+          
   
           if (--timer < 0) {
+            $scope.CPR_total_time = $scope.CPR_total_time + $scope.CPR;
             $interval.cancel(contador);
             if(callback=='cpr') {
+              $scope.CPRbtn = true;
+              $scope.CPR_counter = ++$scope.CPR_counter;
               $scope.showAlertPopup();
+            } else if(callback=='eph') {
+              $scope.EPHbtn = true;
+              $scope.EPH_counter = ++$scope.EPH_counter;
+            } else if(callback=='ami') {
+              $scope.AMIbtn = true;
+              $scope.AMI_counter = ++$scope.AMI_counter;
             }
           }
       }, 1000);
   }
   
-  $scope.date = new Date();
-  $scope.CPR = '02:00';
-  $scope.CPR_minute = '1';
-  $scope.CPR_seconds = '59';
-  $scope.Epinephrine = '3';
-  $scope.Amiodarone = '3';
-
   $scope.showAlertPopup = function() {
     $scope.data = {};
   
@@ -46,7 +81,7 @@ angular.module('starter.controllers', [])
           text: '<b>YES</b>',
           type: 'button-positive',
           onTap: function(e) {
-            
+            $scope.CPRTimer();
           }
         }
       ]
@@ -156,11 +191,20 @@ angular.module('starter.controllers', [])
   }
     
  
-  $scope.CPRTimer = function(totalTime){
-   // $scope.date = new Date();
-    var fiveMinutes = 60 * 1.98;
-    $scope.startTimer = $scope.timer(fiveMinutes,$scope.CPR_minute,$scope.CPR_seconds);
-    
+  $scope.CPRTimer = function(){
+    $scope.CPRbtn = false;
+    var minutes = (60 * 2)-1;
+    $scope.timer(minutes,'cpr');
+  }
+  $scope.EPHTimer = function(){
+    $scope.EPHbtn = false;
+    var minutes = (60 * 2)-1;
+    $scope.timer(minutes,'eph');
+  }
+  $scope.AMITimer = function(){
+    $scope.AMIbtn = false;
+    var minutes = (60 * 2)-1;
+    $scope.timer(minutes,'ami');
   }
  
   //$scope.$on('$ionicView.enter', function(e) {

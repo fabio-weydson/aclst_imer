@@ -6,7 +6,7 @@
           CPR 
         </div>
         <div class="item item-text-wrap item-button-left item-button-right">
-          <button class="button button-calm" ng-click="CPRTimer()">
+          <button class="button button-calm" ng-click="CPRTimer()" ng-disabled="!CPRbtn">
               START
             </button> 
             <span class="counter">{{CPR_minute}}:{{CPR_seconds}}</span>
@@ -18,10 +18,10 @@
           </div>
           <div class="item item-text-wrap item-button-left item-button-right">
            
-            <button class="button button-calm">
+            <button class="button button-calm" ng-click="EPHTimer()" ng-disabled="!EPHbtn">
                 START
               </button> 
-              <span class="counter">03:00</span>
+              <span class="counter">{{EPH_minute}}:{{EPH_seconds}}</span>
             <button class="button button-dark" ng-click="showEphPopup()">
               <i class="icon ion-ios-gear"></i>
               
@@ -34,10 +34,10 @@
                 Amiodarone 
             </div>
             <div class="item item-text-wrap item-button-left item-button-right">
-              <button class="button button-calm">
+              <button class="button button-calm" ng-click="AMITimer()" ng-disabled="!AMIbtn">
                   START
                 </button> 
-                <span class="counter">03:00</span>
+                <span class="counter">{{AMI_minute}}:{{AMI_seconds}}</span>
               <button class="button button-dark" ng-click="showAmiPopup()">
                 <i class="icon ion-ios-gear"></i>
               </button>
@@ -49,13 +49,13 @@
               </div>
               <div class="item item-text-wrap">
                   <div class="row">
-                      <div class="col col-50 text-center"><b>Epinephrine:</b> <br/> 0 </div>
-                      <div class="col col-50 text-center"><b>Amiodarone:</b>  <br/> 0 </div>
+                      <div class="col col-50 text-center"><b>Epinephrine:</b> <br/> {{EPH_counter}} </div>
+                      <div class="col col-50 text-center"><b>Amiodarone:</b>  <br/> {{AMI_counter}} </div>
                     </div>
-                    <div class="row text-center"><div class="col"><b>CPR Cycles:</b>  <br/> 0 </div></div>
+                    <div class="row text-center"><div class="col"><b>CPR Cycles:</b>  <br/> {{CPR_counter}} </div></div>
                     <div class="row">
                         <div class="col col-50 text-center"><b>Start Time:</b>  <br/>  {{date | date:'H:m:s'}} </div>
-                        <div class="col col-50 text-center"><b>CPR Time:</b>  <br/> 0 </div>
+                        <div class="col col-50 text-center"><b>CPR Time:</b>  <br/> {{CPR_total_time}} </div>
                       </div>
                       <div class="row text-center"><div class="col">
                           <button class="button button-assertive" ng-click="showResetPopup()">
