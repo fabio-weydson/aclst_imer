@@ -1,6 +1,17 @@
 <ion-view view-title="CPR">
   <ion-content id="cpr">
-    <div class="list">
+      <div class="list">
+          <div class="card text-center" id="msg-check-rhythm">
+              <div class="item item-divider">
+                  CHECK RHYTHM
+              </div>
+              <div class="item item-text-wrap">
+                <a id="check-rhythm" class="button button-default button-dark">Continue CPR?</a>
+                <a id="no" onclick="return false;" class="button button-assertive ">NO</a> 
+                <a id="yes" onclick="return false;" class="button button-balanced">YES</a>
+              </div>
+      </div>
+
       <div class="card ">
         <div class="item item-divider">
           CPR 
@@ -9,7 +20,7 @@
           <button class="button button-calm" ng-click="timer('02:00')">
               START
             </button> 
-            <span class="counter">{{CPR}} {{CPR_minute}}:{{CPR_seconds}}</span>
+            <span class="counter">{{CPR_minute}}:{{CPR_seconds}}</span>
         </div>
       </div>
       <div class="card ">
@@ -22,9 +33,11 @@
                 START
               </button> 
               <span class="counter">03:00</span>
-            <button class="button button-dark">
+            <button class="button button-dark" ng-click="showEphPopup()">
               <i class="icon ion-ios-gear"></i>
+              
             </button>
+            
           </div>
         </div>
         <div class="card ">
@@ -36,14 +49,14 @@
                   START
                 </button> 
                 <span class="counter">03:00</span>
-              <button class="button button-dark">
+              <button class="button button-dark" ng-click="showAmiPopup()">
                 <i class="icon ion-ios-gear"></i>
               </button>
             </div>
           </div> 
           <div class="card ">
               <div class="item text-center item-divider">
-                TOTAL CYCLES 
+                <b>TOTAL CYCLES</b> 
               </div>
               <div class="item item-text-wrap">
                   <div class="row">
@@ -52,11 +65,11 @@
                     </div>
                     <div class="row text-center"><div class="col"><b>CPR Cycles:</b>  <br/> 0 </div></div>
                     <div class="row">
-                        <div class="col col-50 text-center"><b>Start Time:</b>  <br/> 0 </div>
+                        <div class="col col-50 text-center"><b>Start Time:</b>  <br/>  {{date | date:'H:m:s'}} </div>
                         <div class="col col-50 text-center"><b>CPR Time:</b>  <br/> 0 </div>
                       </div>
                       <div class="row text-center"><div class="col">
-                          <button class="button button-assertive">
+                          <button class="button button-assertive" ng-click="showResetPopup()">
                              STOP ALL
                             </button>
                       </div></div>
