@@ -26,12 +26,12 @@ angular.module('starter.controllers', [])
   $scope.AMI_seconds = '00';
  
 
-  $scope.SumTime = function(hms, addtime) {
-    console.log(hms,addtime)
+  $scope.SumTime = function() {
+    var hms = '00:00';
     var a = hms.split(':'); // split it at the colons
     // minutes are worth 60 seconds. Hours are worth 60 minutes.
-    var newseconds = (parseInt(a[0])+parseInt(addtime)) + ':' + a[1]; 
-    console.log(newseconds);
+    var novo = parseInt(a[0])+2;
+    var newseconds = novo < 10 ? "0" + novo +':00' : novo +':00';
     return newseconds;
   }
 
@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
             if(callback=='cpr') {
               $scope.CPRbtn = true;
               $scope.CPR_counter = ++$scope.CPR_counter;
-              $scope.CPR_total_time = $scope.SumTime($scope.CPR_total_time, ($scope.CPR_counter+2));
+              $scope.CPR_total_time = $scope.SumTime();
               $scope.showAlertPopup();
             } else if(callback=='eph') {
               $scope.EPHbtn = true;
