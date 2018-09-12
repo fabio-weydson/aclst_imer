@@ -7,8 +7,8 @@ angular.module('starter.controllers', [])
 
   $scope.date = new Date();
   $scope.CPRbtn = true;
-  $scope.EPHbtn = true;
-  $scope.AMIbtn = true;
+  $scope.EPHbtn = false;
+  $scope.AMIbtn = false;
 
   $scope.CPR_counter = 0;
   $scope.EPH_counter = 0;
@@ -19,13 +19,21 @@ angular.module('starter.controllers', [])
   $scope.CPR_minute = '2';
   $scope.CPR_seconds = '00';
 
-  $scope.EPH_minute = '2';
+  $scope.EPH_minute = '3';
   $scope.EPH_seconds = '00';
 
-  $scope.AMI_minute = '2';
+  $scope.AMI_minute = '3';
   $scope.AMI_seconds = '00';
  
 
+  $scope.SumTime = function(hms, addtime) {
+    console.log(hms,addtime)
+    var a = hms.split(':'); // split it at the colons
+    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+    var newseconds = (parseInt(a[0])+parseInt(addtime)) + ':' + a[1]; 
+    console.log(newseconds);
+    return newseconds;
+  }
 
   $scope.timer = function(duration, callback){
       var timer = duration, minutes, seconds;
@@ -48,13 +56,14 @@ angular.module('starter.controllers', [])
             $scope.AMI_seconds = seconds;
           }
           
-  
+
           if (--timer < 0) {
-            $scope.CPR_total_time = $scope.CPR_total_time + $scope.CPR;
+            
             $interval.cancel(contador);
             if(callback=='cpr') {
               $scope.CPRbtn = true;
               $scope.CPR_counter = ++$scope.CPR_counter;
+              $scope.CPR_total_time = $scope.SumTime($scope.CPR_total_time, ($scope.CPR_counter+2));
               $scope.showAlertPopup();
             } else if(callback=='eph') {
               $scope.EPHbtn = true;
@@ -63,6 +72,7 @@ angular.module('starter.controllers', [])
               $scope.AMIbtn = true;
               $scope.AMI_counter = ++$scope.AMI_counter;
             }
+            
           }
       }, 1000);
   }
@@ -86,9 +96,6 @@ angular.module('starter.controllers', [])
         }
       ]
     });
-    ephpopup.then(function(res) {
-      console.log('Selected', res);
-    });
   }
 
   $scope.showResetPopup = function() {
@@ -109,90 +116,88 @@ angular.module('starter.controllers', [])
           text: 'STOP ALL',
           type: 'button-assertive',
           onTap: function(e) {
-            
+            $scope.StopAll();
           }
         }
       ]
     });
-    ephpopup.then(function(res) {
-      console.log('Selected', res);
-    });
   }
 
-  $scope.showAmiPopup = function() {
-    $scope.data = {};
-  
-    // An elaborate, custom popup
-    var amipopup = $ionicPopup.show({
-      template: ' <ion-list>'+
-      '<ion-radio ng-model="Amiodarone" ng-value="3">3 minutes</ion-radio>'+
-      '<ion-radio ng-model="Amiodarone" ng-value="4">4 minutes</ion-radio>'+
-      '<ion-radio ng-model="Amiodarone" ng-value="5">5 minutes</ion-radio>'+
-    '</ion-list>',
-      title: 'AMIODARONE Time',
-      subTitle: 'Set interval',
-      scope: $scope,
-      buttons: [
-        { text: 'Cancel' },
-        {
-          text: '<b>Set</b>',
-          type: 'button-positive',
-          onTap: function(e) {
-            if (!$scope.Amiodarone) {
-              //don't allow the user to close unless he enters wifi password
-              e.preventDefault();
-            } else {
-              return $scope.Amiodarone;
-            }
-          }
-        }
-      ]
-    });
-    amipopup.then(function(res) {
-      console.log('Selected', res);
-    });
-  }
-
-  
 
   $scope.showEphPopup = function() {
     $scope.data = {};
-  
     // An elaborate, custom popup
     var ephpopup = $ionicPopup.show({
+      scope: $scope,
       template: ' <ion-list>'+
-      '<ion-radio ng-model="data.Epinephrine" value="3">3 minutes</ion-radio>'+
-      '<ion-radio ng-model="data.Epinephrine" value="4">4 minutes</ion-radio>'+
-      '<ion-radio ng-model="data.Epinephrine" value="5">5 minutes</ion-radio>'+
+      '<ion-radio ng-model="EPH_minute" value="3">3 minutes</ion-radio>'+
+      '<ion-radio ng-model="EPH_minute" value="4">4 minutes</ion-radio>'+
+      '<ion-radio ng-model="EPH_minute" value="5">5 minutes</ion-radio>'+
     '</ion-list>',
       title: 'EPINEPHRINE Time',
       subTitle: 'Set interval',
-      scope: $scope,
+     
       buttons: [
         { text: 'Cancel' },
         {
           text: '<b>Set</b>',
           type: 'button-positive',
           onTap: function(e) {
-            if (!$scope.Epinephrine) {
+            if (!$scope.EPH_minute) {
               //don't allow the user to close unless he enters wifi password
               e.preventDefault();
             } else {
-              $scope.Epinephrine = $scope.data.Epinephrine;
-              return $scope.data.Epinephrine;
+              $scope.EPH_minute = this.scope.EPH_minute;
+              return $scope.EPH_minute;
             }
           }
         }
       ]
     });
     ephpopup.then(function(res) {
-      console.log('Selected', res);
+      //console.log('Selected', res);
     });
   }
-    
- 
+  
+  $scope.showAmiPopup = function() {
+    $scope.data = {};
+    // An elaborate, custom popup
+    var ephpopup = $ionicPopup.show({
+      scope: $scope,
+      template: ' <ion-list>'+
+      '<ion-radio ng-model="AMI_minute" value="3">3 minutes</ion-radio>'+
+      '<ion-radio ng-model="AMI_minute" value="4">4 minutes</ion-radio>'+
+      '<ion-radio ng-model="AMI_minute" value="5">5 minutes</ion-radio>'+
+    '</ion-list>',
+      title: 'AMIODARONE Time',
+      subTitle: 'Set interval',
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Set</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            if (!$scope.AMI_minute) {
+              //don't allow the user to close unless he enters wifi password
+              e.preventDefault();
+            } else {
+              $scope.AMI_minute = this.scope.AMI_minute;
+              return $scope.AMI_minute;
+            }
+          }
+        }
+      ]
+    });
+    ephpopup.then(function(res) {
+      //console.log('Selected', res);
+    });
+  }
+
   $scope.CPRTimer = function(){
+    
     $scope.CPRbtn = false;
+    $scope.EPHbtn = true;
+    $scope.AMIbtn = true;
     var minutes = (60 * 2)-1;
     $scope.timer(minutes,'cpr');
   }

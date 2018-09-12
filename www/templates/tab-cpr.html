@@ -1,4 +1,7 @@
-<ion-view view-title="CPR">
+<ion-view view-title="CPR" >
+    <ion-nav-bar class="bar-calm">
+        <ion-nav-back-button></ion-nav-back-button>
+      </ion-nav-bar>
   <ion-content id="cpr">
       <div class="list">
       <div class="card ">
@@ -58,7 +61,7 @@
                         <div class="col col-50 text-center"><b>CPR Time:</b>  <br/> {{CPR_total_time}} </div>
                       </div>
                       <div class="row text-center"><div class="col">
-                          <button class="button button-assertive" ng-click="showResetPopup()">
+                          <button class="button button-assertive button-block" ng-click="showResetPopup()">
                              STOP ALL
                             </button>
                       </div></div>
