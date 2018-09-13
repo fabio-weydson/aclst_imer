@@ -10,6 +10,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
 
+    cordova.plugins.notification.local.schedule({
+      id: 1,
+      title: 'Test Message',
+      text: 'My first notification',
+      icon: 'http://3.bp.blogspot.com/-Qdsy-GpempY/UU_BN9LTqSI/AAAAAAAAAMA/LkwLW2yNBJ4/s1600/supersu.png',
+      smallIcon: 'res://cordova',
+      sound: 'file://sounds/beep.mp3',
+      badge: 1
+    });
+
     cordova.plugins.backgroundMode.setDefaults({
         title:  'Em modo background', ticker: 'Entrando em segundo plano',  text:'Clique para abrir o aplicativo.'
     });
@@ -25,7 +35,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
