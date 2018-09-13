@@ -10,6 +10,8 @@ angular.module('starter.controllers', [])
   $scope.EPHbtn = false;
   $scope.AMIbtn = false;
 
+  $scope.procedure_start = "00:00:00";
+  
   $scope.CPR_counter = 0;
   $scope.EPH_counter = 0;
   $scope.AMI_counter = 0;
@@ -102,15 +104,18 @@ angular.module('starter.controllers', [])
   
     // An elaborate, custom popup
     var ephpopup = $ionicPopup.show({
-      template: '<center><p><b>Epinephrine: <span id="te"></span></b></p></center>'+
-      '<center><p><b>Amiodarone: <span id="ta"></span></b></strong></p></center>'+
-      '<center><p><b>CPR Cycles: <span id="tc"></span></b></p></center>'+
-      '<center><p><b>Start Time: <span id="hi"></span></b></p></center>'+
-      '<center><p><b>CPR Time: <span id="tcp"></span></b></p></center>',
-      title: 'TOTAL CYCLES',
       scope: $scope,
+      template: '<center><p><b>Epinephrine:</b> <span ng-bind="EPH_counter"></span></p></center>'+
+      '<center><p><b>Amiodarone:</b> <span ng-bind="AMI_counter"></span></p></center>'+
+      '<center><p><b>CPR Cycles:</b> <span ng-bind="CPR_counter"></span></p></center>'+
+      '<center><p><b>Start Time:</b> <span ng-bind="procedure_start"></span></p></center>'+
+      '<center><p><b>CPR Time:</b> <span ng-bind="CPR_total_time"></span></p></center>',
+      title: 'TOTAL CYCLES',
       buttons: [
-        { text: 'CONTINUE', type: 'button-calm' },
+        { text: 'CONTINUE', type: 'button-calm', 
+        onTap: function(e) {
+         
+        } },
         {
           text: 'STOP ALL',
           type: 'button-assertive',
@@ -193,7 +198,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.CPRTimer = function(){
-    
+    $scope.procedure_start = $scope.date;
     $scope.CPRbtn = false;
     $scope.EPHbtn = true;
     $scope.AMIbtn = true;
@@ -202,12 +207,12 @@ angular.module('starter.controllers', [])
   }
   $scope.EPHTimer = function(){
     $scope.EPHbtn = false;
-    var minutes = (60 * 2)-1;
+    var minutes = (60 * $scope.EPH_minute)-1;
     $scope.timer(minutes,'eph');
   }
   $scope.AMITimer = function(){
     $scope.AMIbtn = false;
-    var minutes = (60 * 2)-1;
+    var minutes = (60 * $scope.AMI_minute)-1;
     $scope.timer(minutes,'ami');
   }
  
