@@ -57,7 +57,7 @@
                     </div>
                     <div class="row text-center"><div class="col"><b>CPR Cycles:</b>  <br/> {{CPR_counter}} </div></div>
                     <div class="row">
-                        <div class="col col-50 text-center"><b>Start Time:</b>  <br/>  {{procedure_start | date:'H:m:s'}} </div>
+                        <div class="col col-50 text-center"><b>Start Time:</b>  <br/>  {{date | date:'H:m:ss'}} </div>
                         <div class="col col-50 text-center"><b>CPR Time:</b>  <br/> {{CPR_total_time}} </div>
                       </div>
                       <div class="row text-center"><div class="col">

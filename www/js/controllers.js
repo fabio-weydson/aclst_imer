@@ -1,5 +1,20 @@
 angular.module('starter.controllers', [])
 
+.controller('TabCtrl', function($scope,$ionicPopup){
+    $scope.exitApp = function() {
+      $ionicPopup.confirm({
+        title: 'Exit App',
+        content: 'Do you want to exit?',
+        okText: 'OK',
+        cancelText: 'Cancel'
+    }).then(function (res) {
+            if (res) {
+                navigator.app.exitApp();
+            }
+    });
+  }
+})
+
 .controller('DashCtrl', function($scope) {})
 
 .controller('CprCtrl', function($scope,$interval,$ionicPopup) {
@@ -26,6 +41,16 @@ angular.module('starter.controllers', [])
 
   $scope.AMI_minute = '3';
   $scope.AMI_seconds = '00';
+
+  $scope.showNotification = function(title, msg, sound){
+    cordova.plugins.notification.local.schedule({
+      id: 1,
+      title: title,
+      text: msg,
+      sound: isAndroid ? 'file://'+sound+'.mp3' : 'file://'+sound+'.caf',
+      badge: 1
+    });
+  }
  
 
   $scope.SumTime = function(hms) {
@@ -69,9 +94,11 @@ angular.module('starter.controllers', [])
             } else if(callback=='eph') {
               $scope.EPHbtn = true;
               $scope.EPH_counter = ++$scope.EPH_counter;
+              $scope.showNotification('Epinephrine','Open the CPR App to check','beep');
             } else if(callback=='ami') {
               $scope.AMIbtn = true;
               $scope.AMI_counter = ++$scope.AMI_counter;
+              $scope.showNotification('Amiodarone','Open the CPR App to check','beep');
             }
             
           }
@@ -79,6 +106,7 @@ angular.module('starter.controllers', [])
   }
   
   $scope.showAlertPopup = function() {
+    $scope.showNotification('CHECK RHYTHM','Open the CPR App to check rhythm','alarm');
     $scope.data = {};
   
     // An elaborate, custom popup
@@ -108,14 +136,13 @@ angular.module('starter.controllers', [])
       template: '<center><p><b>Epinephrine:</b> <span ng-bind="EPH_counter"></span></p></center>'+
       '<center><p><b>Amiodarone:</b> <span ng-bind="AMI_counter"></span></p></center>'+
       '<center><p><b>CPR Cycles:</b> <span ng-bind="CPR_counter"></span></p></center>'+
-      '<center><p><b>Start Time:</b> <span ng-bind="procedure_start"></span></p></center>'+
+      "<center><p><b>Start Time:</b> <span>{{procedure_start | date:'H:m:s'}}</span></p></center>"+
       '<center><p><b>CPR Time:</b> <span ng-bind="CPR_total_time"></span></p></center>',
       title: 'TOTAL CYCLES',
       buttons: [
         { text: 'CONTINUE', type: 'button-calm', 
-        onTap: function(e) {
-         
-        } },
+          onTap: function(e) {} 
+        },
         {
           text: 'STOP ALL',
           type: 'button-assertive',
@@ -215,7 +242,12 @@ angular.module('starter.controllers', [])
     var minutes = (60 * $scope.AMI_minute)-1;
     $scope.timer(minutes,'ami');
   }
- 
+  $scope.StopAll = function(){
+    $scope.CPRbtn = true;
+    $scope.EPHbtn = false;
+    $scope.AMIbtn = false;
+  }
+  
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
