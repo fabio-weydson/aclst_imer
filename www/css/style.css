@@ -4,5 +4,28 @@
     display: inline-block;
     text-align: center;
     width: 100%;
-    font-size: 23px;
+    font-size: 16px;
+}
+.card {
+    margin: 5px;
+}
+
+.card .item {
+    padding: 5px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.card .item .button-small {
+    padding: 0 6px !important;
+    font-size: 13px;
+    line-height: 23px !important;
+    min-height: 0;
+}
+
+.card .item.item-divider {
+    background: #efefef;
+}
+.card .item-text-wrap {
+    padding: 9px 0px;
 }

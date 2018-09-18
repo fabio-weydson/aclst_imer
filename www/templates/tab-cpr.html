@@ -9,7 +9,7 @@
           CPR 
         </div>
         <div class="item item-text-wrap item-button-left item-button-right">
-          <button class="button button-calm" ng-click="CPRTimer()" ng-disabled="!CPRbtn">
+          <button class="button button-small button-calm" ng-click="CPRTimer()" ng-disabled="!CPRbtn">
               START
             </button> 
             <span class="counter">{{CPR_minute}}:{{CPR_seconds}}</span>
@@ -21,11 +21,11 @@
           </div>
           <div class="item item-text-wrap item-button-left item-button-right">
            
-            <button class="button button-calm" ng-click="EPHTimer()" ng-disabled="!EPHbtn">
+            <button class="button button-small button-calm" ng-click="EPHTimer()" ng-disabled="!EPHbtn">
                 START
               </button> 
               <span class="counter">{{EPH_minute}}:{{EPH_seconds}}</span>
-            <button class="button button-dark" ng-click="showEphPopup()">
+            <button class="button  button-dark" ng-click="showEphPopup()">
               <i class="icon ion-ios-gear"></i>
               
             </button>
@@ -37,19 +37,19 @@
                 Amiodarone 
             </div>
             <div class="item item-text-wrap item-button-left item-button-right">
-              <button class="button button-calm" ng-click="AMITimer()" ng-disabled="!AMIbtn">
+              <button class="button button-small button-calm" ng-click="AMITimer()" ng-disabled="!AMIbtn">
                   START
                 </button> 
                 <span class="counter">{{AMI_minute}}:{{AMI_seconds}}</span>
-              <button class="button button-dark" ng-click="showAmiPopup()">
+              <button class="button  button-dark" ng-click="showAmiPopup()">
                 <i class="icon ion-ios-gear"></i>
               </button>
             </div>
           </div> 
           <div class="card ">
-              <div class="item text-center item-divider">
+            <!--  <div class="item text-center item-divider">
                 <b>TOTAL CYCLES</b> 
-              </div>
+              </div>-->
               <div class="item item-text-wrap">
                   <div class="row">
                       <div class="col col-50 text-center"><b>Epinephrine:</b> <br/> {{EPH_counter}} </div>
